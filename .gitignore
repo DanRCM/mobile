@@ -3,6 +3,9 @@
 # .gitignore
 /.vscode
 
+# temp files
+temp/
+
 # dependencies
 /node_modules
 /.pnp
