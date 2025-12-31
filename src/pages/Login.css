@@ -1,0 +1,51 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 30px;
+  text-align: center;
+  background: var(--ion-background-color);
+}
+
+.login-logo {
+  margin-bottom: 40px;
+}
+
+.login-logo ion-icon {
+  font-size: 80px;
+  color: var(--ion-color-primary);
+}
+
+.login-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--ion-color-dark);
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.login-subtitle {
+  font-size: 14px;
+  color: var(--ion-color-medium);
+  margin-bottom: 40px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.custom-input {
+  --background: var(--ion-color-light);
+  --padding-start: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.forgot-password {
+  font-size: 12px;
+  color: var(--ion-color-medium);
+  margin-top: 15px;
+  text-decoration: underline;
+}

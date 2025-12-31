@@ -10,15 +10,17 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import { storefront, chatbubbles, addCircle, person } from 'ionicons/icons';
+
+/* Importación de nuestras Páginas */
+import Login from './pages/Login';
+import Home from './pages/Home';
+import Chats from './pages/Chats';
+import Sell from './pages/Sell';
+import Profile from './pages/Profile';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
-
-/* Basic CSS for apps built with Ionic */
 import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
@@ -42,44 +44,72 @@ import '@ionic/react/css/display.css';
 /* import '@ionic/react/css/palettes/dark.class.css'; */
 import '@ionic/react/css/palettes/dark.system.css';
 
-/* Theme variables */
-import './theme/variables.css';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/tab1">
-            <Tab1 />
-          </Route>
-          <Route exact path="/tab2">
-            <Tab2 />
-          </Route>
-          <Route path="/tab3">
-            <Tab3 />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/tab1" />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon aria-hidden="true" icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={square} />
-            <IonLabel>Tab 3</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
+      <IonRouterOutlet>
+        {/* RUTA 1: El Login (Fuera de las Tabs) */}
+        <Route exact path="/login">
+          <Login />
+        </Route>
+
+        {/* RUTA 2: La Aplicación Principal (Con Tabs) */}
+        <Route path="/app">
+          <IonTabs>
+            <IonRouterOutlet>
+              {/* Aquí definimos qué pantalla carga cada pestaña */}
+              <Route exact path="/app/home">
+                <Home />
+              </Route>
+              <Route exact path="/app/chats">
+                <Chats />
+              </Route>
+              <Route exact path="/app/sell">
+                <Sell />
+              </Route>
+              <Route exact path="/app/profile">
+                <Profile />
+              </Route>
+              {/* Redirección por defecto: Si entran a /app, van al Home */}
+              <Route exact path="/app">
+                <Redirect to="/app/home" />
+              </Route>
+            </IonRouterOutlet>
+
+            {/* La Barra de Navegación Inferior */}
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="home" href="/app/home">
+                <IonIcon icon={storefront} />
+                <IonLabel>Explorar</IonLabel>
+              </IonTabButton>
+
+              <IonTabButton tab="chats" href="/app/chats">
+                <IonIcon icon={chatbubbles} />
+                <IonLabel>Chats</IonLabel>
+              </IonTabButton>
+
+              <IonTabButton tab="sell" href="/app/sell">
+                <IonIcon icon={addCircle} />
+                <IonLabel>Vender</IonLabel>
+              </IonTabButton>
+
+              <IonTabButton tab="profile" href="/app/profile">
+                <IonIcon icon={person} />
+                <IonLabel>Perfil</IonLabel>
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+        </Route>
+
+        {/* RUTA DEFAULT: Redirigir al Login si la ruta está vacía */}
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+
+      </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
 );

@@ -1,0 +1,19 @@
+.categories-container {
+  display: flex;
+  overflow-x: auto; /* Permite scroll horizontal */
+  padding: 10px;
+  gap: 5px;
+  /* Ocultar barra de scroll para estética */
+  scrollbar-width: none; 
+}
+
+.categories-container::-webkit-scrollbar {
+  display: none;
+}
+
+.no-results {
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
+  color: var(--ion-color-medium);
+}
