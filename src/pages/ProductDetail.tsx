@@ -18,7 +18,7 @@ import {
 import { chatbubbles, locationOutline, timeOutline } from 'ionicons/icons';
 import { useParams } from 'react-router';
 import { PRODUCTS, Product } from '../data/mockData'; // Importamos los datos
-import './ProductDetail.css'; // Crearemos este CSS después
+import './ProductDetail.css';
 
 const ProductDetail: React.FC = () => {
   // 1. Obtener el ID de la URL (ej: /app/product/2)
@@ -67,8 +67,7 @@ const ProductDetail: React.FC = () => {
 
           {/* DESCRIPCIÓN */}
           <p className="detail-description">
-            Este es un producto increíble ideal para estudiantes de la ESPOL. 
-            (Aquí iría la descripción real del producto si la tuviéramos en los datos).
+            Este es un producto increíble ideal para estudiantes de la ESPOL.
             Estado: 10/10, poco uso.
           </p>
 

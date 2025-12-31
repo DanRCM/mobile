@@ -2,7 +2,7 @@ import React from 'react';
 import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonBadge, IonIcon, IonButton } from '@ionic/react';
 import { locationOutline, chatbubbleEllipsesOutline } from 'ionicons/icons';
 import { Product } from '../data/mockData';
-import './ProductCard.css'; // Crearemos este CSS en un momento
+import './ProductCard.css';
 
 interface ProductCardProps {
   product: Product;
