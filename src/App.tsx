@@ -15,6 +15,7 @@ import { storefront, chatbubbles, addCircle, person } from 'ionicons/icons';
 /* Importación de nuestras Páginas */
 import Login from './pages/Login';
 import Home from './pages/Home';
+import ProductDetail from './pages/ProductDetail';
 import Chats from './pages/Chats';
 import Sell from './pages/Sell';
 import Profile from './pages/Profile';
@@ -63,6 +64,11 @@ const App: React.FC = () => (
               {/* Aquí definimos qué pantalla carga cada pestaña */}
               <Route exact path="/app/home">
                 <Home />
+              </Route>
+              {/* NUEVA RUTA: DETALLE DE PRODUCTO */}
+              {/* Los dos puntos :id indican que es un parámetro variable */}
+              <Route path="/app/product/:id">
+                <ProductDetail />
               </Route>
               <Route exact path="/app/chats">
                 <Chats />

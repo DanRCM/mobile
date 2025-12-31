@@ -10,7 +10,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <IonCard className="product-card">
+    <IonCard className="product-card" routerLink={`/app/product/${product.id}`}>
       {/* Imagen del Producto */}
       <div className="card-image-container">
         <img src={product.image} alt={product.title} />
