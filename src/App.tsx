@@ -17,6 +17,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import Chats from './pages/Chats';
+import ChatRoom from './pages/ChatRoom';
 import Sell from './pages/Sell';
 import Profile from './pages/Profile';
 
@@ -44,7 +45,7 @@ import '@ionic/react/css/display.css';
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
 import '@ionic/react/css/palettes/dark.system.css';
-
+import SellDetail from './pages/SellDetail';
 
 setupIonicReact();
 
@@ -73,8 +74,15 @@ const App: React.FC = () => (
               <Route exact path="/app/chats">
                 <Chats />
               </Route>
+              {/* NUEVA RUTA: SALA DE CHAT */}
+              <Route path="/app/chats/:id">
+                <ChatRoom />
+              </Route>
               <Route exact path="/app/sell">
                 <Sell />
+              </Route>
+              <Route path="/app/sell/detail/:id">
+                <SellDetail />
               </Route>
               <Route exact path="/app/profile">
                 <Profile />

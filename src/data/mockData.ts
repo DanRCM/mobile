@@ -73,3 +73,47 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const CATEGORIES = ['Todo', 'Comida', 'Tecnología', 'Libros', 'Ropa', 'Servicios'];
+
+export interface Chat {
+  id: number;
+  userName: string;
+  avatar: string; // URL de la imagen
+  lastMessage: string;
+  time: string;
+  unreadCount: number;
+  isSelling: boolean; // true = Yo vendo, false = Yo compro
+  productName: string; // Contexto: ¿De qué producto hablan?
+}
+
+export const CHATS: Chat[] = [
+  {
+    id: 1,
+    userName: 'María G.',
+    avatar: 'https://ui-avatars.com/api/?name=Maria+G&background=FFD700&color=fff',
+    lastMessage: 'Sí, estoy en las bancas de la FIEC.',
+    time: '10:30 AM',
+    unreadCount: 2,
+    isSelling: false, // Yo quiero comprar su hamburguesa
+    productName: 'Hamburguesa Completa'
+  },
+  {
+    id: 2,
+    userName: 'Carlos A.',
+    avatar: 'https://ui-avatars.com/api/?name=Carlos+A&background=0D8ABC&color=fff',
+    lastMessage: '¿Aceptas $18 por el libro?',
+    time: 'Ayer',
+    unreadCount: 0,
+    isSelling: true,
+    productName: 'Libro Cálculo I'
+  },
+  {
+    id: 3,
+    userName: 'TechTeam',
+    avatar: 'https://ui-avatars.com/api/?name=Tech+Team&background=333&color=fff',
+    lastMessage: 'Listo, tu laptop quedó como nueva.',
+    time: 'Lun',
+    unreadCount: 1,
+    isSelling: false,
+    productName: 'Mantenimiento'
+  }
+];
