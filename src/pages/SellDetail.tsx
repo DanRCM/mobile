@@ -27,23 +27,31 @@ const SellDetail: React.FC = () => {
   const [editName, setEditName] = useState(product?.title || '');
   const [editPrice, setEditPrice] = useState(product?.price.toString() || '');
   const [editDesc, setEditDesc] = useState(product?.description || '');
+  const [editStock, setEditStock] = useState(product?.stock?.toString() || '0');
 
   if (!product) return <IonPage><IonContent>No encontrado</IonContent></IonPage>;
 
   // FUNCION PARA GUARDAR CAMBIOS
   const handleSave = () => {
+    if (parseFloat(editPrice) <= 0 || parseInt(editStock) < 0) {
+      presentToast({
+        message: 'El precio debe ser mayor a 0 y el stock no puede ser negativo.',
+        duration: 2000,
+        color: 'danger'
+      });
+      return;
+    }
+
     const index = PRODUCTS.findIndex(p => p.id === product.id);
     if (index !== -1) {
       PRODUCTS[index].title = editName;
       PRODUCTS[index].price = parseFloat(editPrice);
-      PRODUCTS[index].description = editDesc;
+      PRODUCTS[index].stock = parseInt(editStock);
 
-      presentToast({
-        message: 'Producto actualizado con éxito',
-        duration: 2000,
-        color: 'success',
-        position: 'bottom'
-      });
+      // Si el stock llega a 0, se oculta automáticamente
+      if (parseInt(editStock) === 0) PRODUCTS[index].available = false;
+
+      presentToast({ message: 'Datos actualizados', duration: 2000, color: 'success' });
       setShowEditModal(false);
     }
   };
@@ -106,28 +114,46 @@ const SellDetail: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <h3 style={{ marginLeft: '10px', marginTop: '20px' }}>Rendimiento</h3>
+        <h3 style={{ marginLeft: '16px', fontSize: '1.1rem', fontWeight: '600', marginTop: '20px' }}>
+          Rendimiento
+        </h3>
 
-        {/* DISEÑO DE GRILLA CORREGIDO (CENTRADO) */}
-        <IonGrid className="ion-no-padding">
-          <IonRow>
-            <IonCol size="6">
-              <IonCard style={{ textAlign: 'center', margin: '8px' }}>
-                <IonCardContent>
-                  <IonIcon icon={eyeOutline} color="primary" style={{ fontSize: '28px' }} />
-                  <h2 style={{ margin: '8px 0', fontWeight: 'bold' }}>124</h2>
-                  <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Vistas</p>
-                </IonCardContent>
-              </IonCard>
+        <IonGrid style={{ padding: '8px' }}>
+          <IonRow className="ion-justify-content-center"> {/* Centra las columnas si sobrasen espacio */}
+            <IonCol size="6" style={{ padding: '8px' }}>
+              <div style={{
+                aspectRatio: '1/1',
+                background: '#1e1e1e', // Fondo oscuro para resaltar en modo dark
+                borderRadius: '16px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%', // Obliga a ocupar todo el ancho de la columna
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+              }}>
+                <IonIcon icon={eyeOutline} color="primary" style={{ fontSize: '28px' }} />
+                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', marginTop: '8px', color: 'white' }}>124</span>
+                <span style={{ fontSize: '0.85rem', color: '#aaa', textTransform: 'capitalize' }}>Vistas</span>
+              </div>
             </IonCol>
-            <IonCol size="6">
-              <IonCard style={{ textAlign: 'center', margin: '8px' }}>
-                <IonCardContent>
-                  <IonIcon icon={chatbubblesOutline} color="success" style={{ fontSize: '28px' }} />
-                  <h2 style={{ margin: '8px 0', fontWeight: 'bold' }}>8</h2>
-                  <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Interesados</p>
-                </IonCardContent>
-              </IonCard>
+
+            <IonCol size="6" style={{ padding: '8px' }}>
+              <div style={{
+                aspectRatio: '1/1',
+                background: '#1e1e1e',
+                borderRadius: '16px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+              }}>
+                <IonIcon icon={chatbubblesOutline} color="success" style={{ fontSize: '28px' }} />
+                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', marginTop: '8px', color: 'white' }}>8</span>
+                <span style={{ fontSize: '0.85rem', color: '#aaa', textTransform: 'capitalize' }}>Interesados</span>
+              </div>
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -177,6 +203,15 @@ const SellDetail: React.FC = () => {
             <IonItem>
               <IonLabel position="stacked">Descripción</IonLabel>
               <IonTextarea value={editDesc} onIonInput={e => setEditDesc(e.detail.value!)} rows={4} />
+            </IonItem>
+            <IonItem>
+              <IonLabel position="stacked">Stock Disponible</IonLabel>
+              <IonInput
+                type="number"
+                value={editStock}
+                onIonInput={e => setEditStock(e.detail.value!)}
+                placeholder="Ej: 10"
+              />
             </IonItem>
 
             <IonButton expand="block" style={{ marginTop: '30px' }} onClick={handleSave}>

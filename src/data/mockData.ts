@@ -3,6 +3,7 @@ export interface Product {
   title: string;
   price: number;
   category: string;
+  stock: number;
   user_status: string;
   image: string;
   description: string;
@@ -17,6 +18,7 @@ export const PRODUCTS: Product[] = [
     title: 'Hamburguesa Completa',
     price: 3.50,
     category: 'Comida',
+    stock: 20,
     user_status: 'Estudiante',
     image: '/assets/products/hamburguesa.webp', 
     description: 'Deliciosa hamburguesa artesanal con carne de res, queso cheddar, tocino crujiente y vegetales frescos. ¡Viene con papas!',
@@ -29,6 +31,7 @@ export const PRODUCTS: Product[] = [
     title: 'Cargador iPhone Original',
     price: 15.00,
     category: 'Tecnología',
+    stock: 5,
     user_status: 'Estudiante',
     image: '/assets/products/cargador_iphone.webp',
     description: 'Cargador USB-C de 20W original. Carga rápida garantizada para tu iPhone o iPad. En caja sellada.',
@@ -41,6 +44,7 @@ export const PRODUCTS: Product[] = [
     title: 'Libro Cálculo I - Stewart',
     price: 20.00,
     category: 'Libros',
+    stock: 3,
     user_status: 'Estudiante',
     image: '/assets/products/libro_calculo_stewart.webp',
     description: 'Séptima edición del clásico de James Stewart. Ideal para nivelación y primer semestre. Está forrado y sin rayones.',
@@ -53,6 +57,7 @@ export const PRODUCTS: Product[] = [
     title: 'Brownies Mágicos (Normales)',
     price: 1.50,
     category: 'Comida',
+    stock: 30,
     user_status: 'Estudiante',
     image: '/assets/products/brownies.webp',
     description: 'Brownies caseros melcochudos con doble ración de chispas de chocolate. ¡El snack perfecto para estudiar!',
@@ -65,6 +70,7 @@ export const PRODUCTS: Product[] = [
     title: 'Mantenimiento de Laptop',
     price: 10.00,
     category: 'Servicios',
+    stock: 10,
     user_status: 'Graduado',
     image: '/assets/products/mantenimiento_laptop.webp',
     description: 'Limpieza interna de ventiladores, cambio de pasta térmica y optimización de software. ¡Dale una nueva vida a tu PC!',
@@ -77,6 +83,7 @@ export const PRODUCTS: Product[] = [
     title: 'Hoodie ESPOL',
     price: 25.00,
     category: 'Ropa',
+    stock: 8,
     user_status: 'Personal Administrativo',
     image: '/assets/products/hoodie.png',
     description: 'Hoodie azul marino oficial de la ESPOL. Talla M, material ultra suave y abrigado para las clases con aire acondicionado.',
@@ -89,6 +96,7 @@ export const PRODUCTS: Product[] = [
     title: 'Almuerzos Saludables',
     price: 2.5,
     category: 'Comida',
+    stock: 25,
     user_status: 'Estudiante',
     image: '/assets/products/almuerzo_saludable.webp',
     description: 'Almuerzos saludables preparados con ingredientes frescos y nutritivos. Perfectos para mantener una dieta equilibrada durante el día.',

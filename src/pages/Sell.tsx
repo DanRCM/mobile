@@ -71,6 +71,7 @@ const Sell: React.FC = () => {
       title: newName,
       price: parseFloat(newPrice),
       category: newCategory,
+      stock: parseInt(newStock) || 1,
       image: tempImage || 'https://via.placeholder.com/150?text=Sin+Foto',
       description: newDescription,
       sellerName: 'Juan P.', // Tu usuario
@@ -108,31 +109,42 @@ const Sell: React.FC = () => {
   };
 
   const handleToggle = (id: number) => {
-    // 1. Encontrar el producto en el array global y en el local
     const productIndex = PRODUCTS.findIndex(p => p.id === id);
 
     if (productIndex !== -1) {
-      // Invertimos el valor real en el array de datos
-      const newStatus = !PRODUCTS[productIndex].available;
+      const product = PRODUCTS[productIndex];
+      const isActivating = !product.available; // ¿El usuario está intentando encenderlo?
+
+      // --- LOGICA DE GUARDIA PARA STOCK ---
+      // Si quiere encenderlo pero el stock es 0 o menos, le impedimos la acción
+      if (isActivating && product.stock <= 0) {
+        present({
+          message: 'No puedes activar un producto con Stock 0. Edita el producto para añadir unidades.',
+          duration: 3000,
+          position: 'bottom',
+          color: 'danger',
+          buttons: [{ text: 'CERRAR', role: 'cancel' }]
+        });
+        return; // Salimos de la función aquí, no se cambia nada
+      }
+      // -------------------------------------
+
+      // Si pasa la validación, procedemos con el cambio normal
+      const newStatus = isActivating;
       PRODUCTS[productIndex].available = newStatus;
 
-      // 2. Actualizar el estado local para que React redibuje los switches
+      // Actualizamos el estado local
       setMyProducts(prev =>
         prev.map(p => p.id === id ? { ...p, available: newStatus } : p)
       );
 
-      // 3. Mostrar el Toast con botón de cerrar
+      // Toast de éxito
       present({
         message: newStatus ? 'Publicación ahora visible' : 'Publicación oculta',
-        duration: 3000, // Un poco más de tiempo pero con botón
+        duration: 3000,
         position: 'bottom',
         color: newStatus ? 'success' : 'warning',
-        buttons: [
-          {
-            text: 'CERRAR',
-            role: 'cancel'
-          }
-        ]
+        buttons: [{ text: 'CERRAR', role: 'cancel' }]
       });
     }
   };
@@ -154,11 +166,14 @@ const Sell: React.FC = () => {
                 <img src={p.image} alt={p.title} style={{ borderRadius: '8px' }} />
               </IonThumbnail>
               <IonLabel onClick={() => history.push(`/app/sell/detail/${p.id}`)}>
-                <h2>{p.title}</h2>
-                <p>${p.price.toFixed(2)}</p>
-                <IonNote color="primary"><IonIcon icon={cubeOutline} /> Stock: {p.stock}</IonNote>
+                <h2 style={{ fontWeight: '600' }}>{p.title}</h2>
+                <p style={{ margin: '2px 0' }}>${p.price.toFixed(2)}</p>
+                <IonNote color={p.stock <= 0 ? 'danger' : 'primary'} style={{ fontSize: '0.8rem' }}>
+                  <IonIcon icon={cubeOutline} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                  Stock: {p.stock} {p.stock <= 0 && '(Agotado)'}
+                </IonNote>
               </IonLabel>
-              <IonToggle slot="end" checked={p.available} color="success" onClick={(e) => { e.stopPropagation(); handleToggle(p.id); }} />
+              <IonToggle slot="end" checked={p.available} color="success" disabled={p.stock <= 0} onClick={(e) => { e.stopPropagation(); handleToggle(p.id); }} />
             </IonItem>
           ))}
         </IonList>

@@ -32,8 +32,7 @@ const Home: React.FC = () => {
     const matchesSearch = product.title.toLowerCase().includes(searchText.toLowerCase());
     // 2. Filtro por categoría
     const matchesCategory = selectedCategory === 'Todo' || product.category === selectedCategory;
-    
-    return matchesSearch && matchesCategory && product.available === true;
+    return matchesSearch && matchesCategory && product.available === true && product.stock > 0;
   });
 
   return (
