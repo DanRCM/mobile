@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   IonContent, IonHeader, IonPage, IonTitle, IonToolbar, 
   IonAvatar, IonLabel, IonItem, IonList, IonIcon, 
-  IonButton, IonToggle, IonItemDivider, IonNote
+  IonButton, IonToggle, IonItemDivider, IonNote, useIonViewWillEnter
 } from '@ionic/react';
 import { 
   settingsOutline, star, walletOutline, 
@@ -10,8 +10,19 @@ import {
   shieldCheckmarkOutline, schoolOutline
 } from 'ionicons/icons';
 import '../themes/Profile.css';
+import { PRODUCTS } from '../data/mockData';
 
 const Profile: React.FC = () => {
+  const myProducts = PRODUCTS.filter(p => p.sellerName === 'Juan P.');
+  // Necesitamos mostrar el numero de productos que no estan agotados
+  const activeProductsCount = myProducts.filter(p => p.available).length;
+  const [tick, setTick] = useState(0);
+
+  // Cada vez que entres a la pestaña "Explorar", forzamos un refresco
+  useIonViewWillEnter(() => {
+    setTick(t => t + 1);
+  });
+
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -25,7 +36,7 @@ const Profile: React.FC = () => {
           
           <div className="reputation-badge">
             <IonIcon icon={star} color="warning" />
-            <span>4.9 Reputación (24 ventas)</span>
+            <span>4.8 Reputación (24 ventas)</span>
           </div>
 
           <div className="profile-stats-row">
@@ -34,7 +45,7 @@ const Profile: React.FC = () => {
               <span className="stat-label">Ventas</span>
             </div>
             <div className="stat-item">
-              <span className="stat-value">5</span>
+              <span className="stat-value">{activeProductsCount}</span>
               <span className="stat-label">Activos</span>
             </div>
             <div className="stat-item">
