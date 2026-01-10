@@ -4,6 +4,7 @@ export interface Product {
   price: number;
   category: string;
   image: string;
+  description: string;
   sellerName: string;
   location: string;
   available: boolean;
@@ -16,6 +17,7 @@ export const PRODUCTS: Product[] = [
     price: 3.50,
     category: 'Comida',
     image: '/assets/products/hamburguesa.webp', 
+    description: 'Deliciosa hamburguesa artesanal con carne de res, queso cheddar, tocino crujiente y vegetales frescos. ¡Viene con papas!',
     sellerName: 'María G.',
     location: 'FEPOL',
     available: true
@@ -26,6 +28,7 @@ export const PRODUCTS: Product[] = [
     price: 15.00,
     category: 'Tecnología',
     image: '/assets/products/cargador_iphone.webp',
+    description: 'Cargador USB-C de 20W original. Carga rápida garantizada para tu iPhone o iPad. En caja sellada.',
     sellerName: 'Juan P.',
     location: 'Biblioteca',
     available: true
@@ -36,6 +39,7 @@ export const PRODUCTS: Product[] = [
     price: 20.00,
     category: 'Libros',
     image: '/assets/products/libro_calculo_stewart.webp',
+    description: 'Séptima edición del clásico de James Stewart. Ideal para nivelación y primer semestre. Está forrado y sin rayones.',
     sellerName: 'Carlos A.',
     location: 'FCNM',
     available: false
@@ -46,6 +50,7 @@ export const PRODUCTS: Product[] = [
     price: 1.50,
     category: 'Comida',
     image: '/assets/products/brownies.webp',
+    description: 'Brownies caseros melcochudos con doble ración de chispas de chocolate. ¡El snack perfecto para estudiar!',
     sellerName: 'Luisa M.',
     location: 'Comedor',
     available: true
@@ -56,6 +61,7 @@ export const PRODUCTS: Product[] = [
     price: 10.00,
     category: 'Servicios',
     image: '/assets/products/mantenimiento_laptop.webp',
+    description: 'Limpieza interna de ventiladores, cambio de pasta térmica y optimización de software. ¡Dale una nueva vida a tu PC!',
     sellerName: 'TechTeam',
     location: 'FIEC',
     available: true
@@ -66,6 +72,7 @@ export const PRODUCTS: Product[] = [
     price: 25.00,
     category: 'Ropa',
     image: '/assets/products/hoodie.png',
+    description: 'Hoodie azul marino oficial de la ESPOL. Talla M, material ultra suave y abrigado para las clases con aire acondicionado.',
     sellerName: 'Tienda Estudiantil',
     location: 'Rectorado',
     available: true

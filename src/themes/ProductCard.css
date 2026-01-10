@@ -14,7 +14,7 @@
 .card-image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* ESTA ES LA CLAVE: Corta la imagen para que llene el espacio sin deformarse */
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
 

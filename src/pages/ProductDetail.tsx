@@ -66,8 +66,7 @@ const ProductDetail: React.FC = () => {
           <div className="detail-category-chip">{product.category}</div>
 
           <p className="detail-description">
-            Este es un producto increíble ideal para estudiantes de la ESPOL.
-            Estado: 10/10, poco uso.
+            {product.description}
           </p>
 
           <hr className="divider" />
