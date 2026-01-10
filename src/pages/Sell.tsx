@@ -4,17 +4,51 @@ import {
   IonList, IonItem, IonThumbnail, IonLabel, IonToggle, 
   IonFab, IonFabButton, IonIcon, IonModal, IonButton,
   IonInput, IonTextarea, IonItemDivider, IonSelect, IonSelectOption,
-  IonBadge, IonNote
+  IonNote, useIonToast 
 } from '@ionic/react';
 import { add, camera, cubeOutline } from 'ionicons/icons';
+import { useHistory } from 'react-router-dom';
 import { PRODUCTS, CATEGORIES } from '../data/mockData';
 
 const Sell: React.FC = () => {
+  const history = useHistory();
+  const [present] = useIonToast();
   const [showModal, setShowModal] = useState(false);
-  // Simulamos que estos productos tienen un stock inicial
+  
+  // Este estado controla la lista local para que el switch se mueva visualmente
   const [myProducts, setMyProducts] = useState(
-    PRODUCTS.slice(0, 3).map(p => ({ ...p, stock: Math.floor(Math.random() * 10) + 1 }))
+    PRODUCTS.filter(p => p.sellerName === 'Juan P.').map(p => ({ ...p, stock: 10 }))
   );
+
+  const handleToggle = (id: number) => {
+    // 1. Encontrar el producto en el array global y en el local
+    const productIndex = PRODUCTS.findIndex(p => p.id === id);
+    
+    if (productIndex !== -1) {
+      // Invertimos el valor real en el array de datos
+      const newStatus = !PRODUCTS[productIndex].available;
+      PRODUCTS[productIndex].available = newStatus;
+
+      // 2. Actualizar el estado local para que React redibuje los switches
+      setMyProducts(prev => 
+        prev.map(p => p.id === id ? { ...p, available: newStatus } : p)
+      );
+
+      // 3. Mostrar el Toast con botón de cerrar
+      present({
+        message: newStatus ? 'Publicación ahora visible' : 'Publicación oculta',
+        duration: 3000, // Un poco más de tiempo pero con botón
+        position: 'bottom',
+        color: newStatus ? 'success' : 'warning',
+        buttons: [
+          {
+            text: 'CERRAR',
+            role: 'cancel'
+          }
+        ]
+      });
+    }
+  };
 
   return (
     <IonPage>
@@ -26,24 +60,31 @@ const Sell: React.FC = () => {
 
       <IonContent fullscreen>
         <IonList>
-          <IonItemDivider>Tus productos publicados</IonItemDivider>
+          <IonItemDivider>Gestión de Inventario</IonItemDivider>
+          
           {myProducts.map(p => (
-            <IonItem key={p.id} button detail={true} routerLink={`/app/sell/detail/${p.id}`}>
-              <IonThumbnail slot="start">
+            <IonItem key={p.id}>
+              <IonThumbnail slot="start" onClick={() => history.push(`/app/sell/detail/${p.id}`)}>
                 <img src={p.image} alt={p.title} style={{borderRadius: '8px'}} />
               </IonThumbnail>
-              <IonLabel>
+              
+              <IonLabel onClick={() => history.push(`/app/sell/detail/${p.id}`)}>
                 <h2>{p.title}</h2>
                 <p>${p.price.toFixed(2)}</p>
                 <IonNote color="primary">
-                    <IonIcon icon={cubeOutline} style={{ verticalAlign: 'middle' }} /> Stock: {p.stock} uds.
+                    <IonIcon icon={cubeOutline} /> Stock: {p.stock}
                 </IonNote>
               </IonLabel>
+
               <IonToggle 
                 slot="end" 
                 checked={p.available} 
                 color="success" 
-                onClick={(e) => e.stopPropagation()} 
+                /* Cambiamos onIonChange por onClick para tener control total del evento */
+                onClick={(e) => {
+                    e.stopPropagation();
+                    handleToggle(p.id);
+                }}
               />
             </IonItem>
           ))}
@@ -55,54 +96,18 @@ const Sell: React.FC = () => {
           </IonFabButton>
         </IonFab>
 
-        {/* MODAL PARA NUEVO PRODUCTO */}
+        {/* Modal de nuevo producto (abreviado por brevedad, manten tu código interno) */}
         <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>Nuevo Producto</IonTitle>
-              <IonButton slot="end" fill="clear" onClick={() => setShowModal(false)}>Cerrar</IonButton>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent className="ion-padding">
-            <div style={{ textAlign: 'center', padding: '20px', background: '#f4f4f4', borderRadius: '15px', marginBottom: '15px' }}>
-                <IonIcon icon={camera} style={{ fontSize: '48px', color: '#666' }} />
-                <p>Subir foto del producto</p>
-            </div>
-            
-            <IonItem>
-              <IonLabel position="stacked">Nombre del producto</IonLabel>
-              <IonInput placeholder="Ej: Bolón mixto"></IonInput>
-            </IonItem>
-
-            <div style={{ display: 'flex' }}>
-                <IonItem style={{ flex: 1 }}>
-                  <IonLabel position="stacked">Precio ($)</IonLabel>
-                  <IonInput type="number" placeholder="0.00"></IonInput>
-                </IonItem>
-                <IonItem style={{ flex: 1 }}>
-                  <IonLabel position="stacked">Stock inicial</IonLabel>
-                  <IonInput type="number" placeholder="Cant."></IonInput>
-                </IonItem>
-            </div>
-
-            <IonItem>
-              <IonLabel position="stacked">Categoría</IonLabel>
-              <IonSelect placeholder="Selecciona una">
-                {CATEGORIES.filter(c => c !== 'Todo').map(c => (
-                    <IonSelectOption key={c} value={c}>{c}</IonSelectOption>
-                ))}
-              </IonSelect>
-            </IonItem>
-
-            <IonItem>
-              <IonLabel position="stacked">Descripción</IonLabel>
-              <IonTextarea placeholder="Cuéntanos más de tu producto..."></IonTextarea>
-            </IonItem>
-
-            <IonButton expand="block" style={{ marginTop: '20px' }} onClick={() => setShowModal(false)}>
-              Publicar Producto
-            </IonButton>
-          </IonContent>
+            <IonHeader>
+                <IonToolbar>
+                    <IonTitle>Nuevo Producto</IonTitle>
+                    <IonButton slot="end" fill="clear" onClick={() => setShowModal(false)}>Cerrar</IonButton>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent className="ion-padding">
+                {/* ... tus campos de input aquí ... */}
+                <IonButton expand="block" onClick={() => setShowModal(false)}>Publicar</IonButton>
+            </IonContent>
         </IonModal>
       </IonContent>
     </IonPage>

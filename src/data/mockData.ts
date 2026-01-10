@@ -20,7 +20,7 @@ export const PRODUCTS: Product[] = [
     user_status: 'Estudiante',
     image: '/assets/products/hamburguesa.webp', 
     description: 'Deliciosa hamburguesa artesanal con carne de res, queso cheddar, tocino crujiente y vegetales frescos. ¡Viene con papas!',
-    sellerName: 'María G.',
+    sellerName: 'Juan P.',
     location: 'FEPOL',
     available: true
   },
@@ -44,9 +44,9 @@ export const PRODUCTS: Product[] = [
     user_status: 'Estudiante',
     image: '/assets/products/libro_calculo_stewart.webp',
     description: 'Séptima edición del clásico de James Stewart. Ideal para nivelación y primer semestre. Está forrado y sin rayones.',
-    sellerName: 'Carlos A.',
+    sellerName: 'Juan P.',
     location: 'FCNM',
-    available: false
+    available: true
   },
   {
     id: 4,

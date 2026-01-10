@@ -9,7 +9,8 @@ import {
   IonRow,
   IonCol,
   IonChip,
-  IonLabel
+  IonLabel,
+  useIonViewWillEnter
 } from '@ionic/react';
 import { PRODUCTS, CATEGORIES } from '../data/mockData';
 import ProductCard from '../components/ProductCard';
@@ -18,6 +19,12 @@ import '../themes/Home.css';
 const Home: React.FC = () => {
   const [searchText, setSearchText] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todo');
+  const [tick, setTick] = useState(0);
+
+  // Cada vez que entres a la pestaña "Explorar", forzamos un refresco
+  useIonViewWillEnter(() => {
+    setTick(t => t + 1);
+  });
 
   // Lógica de Filtrado
   const filteredProducts = PRODUCTS.filter(product => {
@@ -26,7 +33,7 @@ const Home: React.FC = () => {
     // 2. Filtro por categoría
     const matchesCategory = selectedCategory === 'Todo' || product.category === selectedCategory;
     
-    return matchesSearch && matchesCategory;
+    return matchesSearch && matchesCategory && product.available === true;
   });
 
   return (
