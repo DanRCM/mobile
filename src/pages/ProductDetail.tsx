@@ -12,7 +12,8 @@ import {
   IonIcon,
   IonAvatar,
   IonLabel,
-  IonItem
+  IonItem,
+  IonCard
 } from '@ionic/react';
 import { useHistory, useParams } from 'react-router-dom'; // Importamos useHistory
 import { chatbubbles, locationOutline, timeOutline } from 'ionicons/icons';
@@ -28,6 +29,10 @@ const ProductDetail: React.FC = () => {
   if (!product) {
     return <IonPage><IonContent>Producto no encontrado</IonContent></IonPage>;
   }
+
+  const goToSellerProfile = () => {
+    history.push(`/app/seller-profile/${product?.sellerName}`);
+  };
 
   const contactSeller = () => {
     const initialMsg = `Hola, me interesa tu producto "${product?.title}". ¿Sigue disponible?`;
@@ -72,22 +77,22 @@ const ProductDetail: React.FC = () => {
           <hr className="divider" />
 
           <h3 className="section-title">Sobre el Vendedor</h3>
-          <div className="seller-card">
-            <IonItem lines="none" className="seller-item">
+          <IonCard 
+            mode="ios" 
+            className="seller-card-link" 
+            onClick={goToSellerProfile}
+            style={{ margin: 0, cursor: 'pointer' }}
+          >
+            <IonItem lines="none" detail={true}>
               <IonAvatar slot="start">
-                <img src={`https://ui-avatars.com/api/?name=${product.sellerName}&background=random`} alt="avatar" />
+                <img src={`https://ui-avatars.com/api/?name=${product?.sellerName}&background=random`} alt="avatar" />
               </IonAvatar>
               <IonLabel>
-                <h2>{product.sellerName}</h2>
-                <p>Estudiante FEPOL</p>
+                <h2>{product?.sellerName}</h2>
+                <p>Ver perfil y otros productos</p>
               </IonLabel>
             </IonItem>
-
-            <div className="seller-meta">
-              <span><IonIcon icon={locationOutline} /> {product.location}</span>
-              <span><IonIcon icon={timeOutline} /> Lunes y Jueves</span>
-            </div>
-          </div>
+          </IonCard>
         </div>
       </IonContent>
 

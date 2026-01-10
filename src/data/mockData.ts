@@ -3,6 +3,7 @@ export interface Product {
   title: string;
   price: number;
   category: string;
+  user_status: string;
   image: string;
   description: string;
   sellerName: string;
@@ -16,6 +17,7 @@ export const PRODUCTS: Product[] = [
     title: 'Hamburguesa Completa',
     price: 3.50,
     category: 'Comida',
+    user_status: 'Estudiante',
     image: '/assets/products/hamburguesa.webp', 
     description: 'Deliciosa hamburguesa artesanal con carne de res, queso cheddar, tocino crujiente y vegetales frescos. ¡Viene con papas!',
     sellerName: 'María G.',
@@ -27,6 +29,7 @@ export const PRODUCTS: Product[] = [
     title: 'Cargador iPhone Original',
     price: 15.00,
     category: 'Tecnología',
+    user_status: 'Estudiante',
     image: '/assets/products/cargador_iphone.webp',
     description: 'Cargador USB-C de 20W original. Carga rápida garantizada para tu iPhone o iPad. En caja sellada.',
     sellerName: 'Juan P.',
@@ -38,6 +41,7 @@ export const PRODUCTS: Product[] = [
     title: 'Libro Cálculo I - Stewart',
     price: 20.00,
     category: 'Libros',
+    user_status: 'Estudiante',
     image: '/assets/products/libro_calculo_stewart.webp',
     description: 'Séptima edición del clásico de James Stewart. Ideal para nivelación y primer semestre. Está forrado y sin rayones.',
     sellerName: 'Carlos A.',
@@ -49,6 +53,7 @@ export const PRODUCTS: Product[] = [
     title: 'Brownies Mágicos (Normales)',
     price: 1.50,
     category: 'Comida',
+    user_status: 'Estudiante',
     image: '/assets/products/brownies.webp',
     description: 'Brownies caseros melcochudos con doble ración de chispas de chocolate. ¡El snack perfecto para estudiar!',
     sellerName: 'Luisa M.',
@@ -60,6 +65,7 @@ export const PRODUCTS: Product[] = [
     title: 'Mantenimiento de Laptop',
     price: 10.00,
     category: 'Servicios',
+    user_status: 'Graduado',
     image: '/assets/products/mantenimiento_laptop.webp',
     description: 'Limpieza interna de ventiladores, cambio de pasta térmica y optimización de software. ¡Dale una nueva vida a tu PC!',
     sellerName: 'TechTeam',
@@ -71,9 +77,22 @@ export const PRODUCTS: Product[] = [
     title: 'Hoodie ESPOL',
     price: 25.00,
     category: 'Ropa',
+    user_status: 'Personal Administrativo',
     image: '/assets/products/hoodie.png',
     description: 'Hoodie azul marino oficial de la ESPOL. Talla M, material ultra suave y abrigado para las clases con aire acondicionado.',
     sellerName: 'Tienda Estudiantil',
+    location: 'Rectorado',
+    available: true
+  },
+  {
+    id: 7,
+    title: 'Almuerzos Saludables',
+    price: 2.5,
+    category: 'Comida',
+    user_status: 'Estudiante',
+    image: '/assets/products/almuerzo_saludable.webp',
+    description: 'Almuerzos saludables preparados con ingredientes frescos y nutritivos. Perfectos para mantener una dieta equilibrada durante el día.',
+    sellerName: 'María G.',
     location: 'Rectorado',
     available: true
   }

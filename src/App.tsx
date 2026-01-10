@@ -46,6 +46,7 @@ import '@ionic/react/css/display.css';
 /* import '@ionic/react/css/palettes/dark.class.css'; */
 import '@ionic/react/css/palettes/dark.system.css';
 import SellDetail from './pages/SellDetail';
+import SellerProfile from './pages/SellerProfile';
 
 setupIonicReact();
 
@@ -80,6 +81,9 @@ const App: React.FC = () => (
               </Route>
               <Route exact path="/app/sell">
                 <Sell />
+              </Route>
+              <Route path="/app/seller-profile/:name">
+                <SellerProfile />
               </Route>
               <Route path="/app/sell/detail/:id">
                 <SellDetail />
