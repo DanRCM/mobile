@@ -19,7 +19,7 @@ import {
 import { send, locationOutline } from 'ionicons/icons';
 import { useParams } from 'react-router';
 import { CHATS } from '../data/mockData';
-import './ChatRoom.css';
+import '../themes/ChatRoom.css';
 
 const ChatRoom: React.FC = () => {
     const { id } = useParams<{ id: string }>();

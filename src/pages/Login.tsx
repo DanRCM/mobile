@@ -10,7 +10,7 @@ import {
   useIonRouter 
 } from '@ionic/react';
 import { storefrontOutline, personOutline, lockClosedOutline } from 'ionicons/icons';
-import './Login.css';
+import '../themes/Login.css';
 
 const Login: React.FC = () => {
   const router = useIonRouter();

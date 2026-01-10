@@ -15,7 +15,7 @@ export const PRODUCTS: Product[] = [
     title: 'Hamburguesa Completa',
     price: 3.50,
     category: 'Comida',
-    image: 'https://placehold.co/600x400/orange/white?text=Hamburguesa',
+    image: '/assets/products/hamburguesa.webp', 
     sellerName: 'María G.',
     location: 'FEPOL',
     available: true
@@ -25,7 +25,7 @@ export const PRODUCTS: Product[] = [
     title: 'Cargador iPhone Original',
     price: 15.00,
     category: 'Tecnología',
-    image: 'https://placehold.co/600x400/black/white?text=Cargador',
+    image: '/assets/products/cargador_iphone.webp',
     sellerName: 'Juan P.',
     location: 'Biblioteca',
     available: true
@@ -35,17 +35,17 @@ export const PRODUCTS: Product[] = [
     title: 'Libro Cálculo I - Stewart',
     price: 20.00,
     category: 'Libros',
-    image: 'https://placehold.co/600x400/blue/white?text=Calculo',
+    image: '/assets/products/libro_calculo_stewart.webp',
     sellerName: 'Carlos A.',
     location: 'FCNM',
-    available: false // Ejemplo de producto no disponible
+    available: false
   },
   {
     id: 4,
     title: 'Brownies Mágicos (Normales)',
     price: 1.50,
     category: 'Comida',
-    image: 'https://placehold.co/600x400/brown/white?text=Brownie',
+    image: '/assets/products/brownies.webp',
     sellerName: 'Luisa M.',
     location: 'Comedor',
     available: true
@@ -55,7 +55,7 @@ export const PRODUCTS: Product[] = [
     title: 'Mantenimiento de Laptop',
     price: 10.00,
     category: 'Servicios',
-    image: 'https://placehold.co/600x400/gray/white?text=Reparacion',
+    image: '/assets/products/mantenimiento_laptop.webp',
     sellerName: 'TechTeam',
     location: 'FIEC',
     available: true
@@ -65,7 +65,7 @@ export const PRODUCTS: Product[] = [
     title: 'Hoodie ESPOL',
     price: 25.00,
     category: 'Ropa',
-    image: 'https://placehold.co/600x400/navy/white?text=Hoodie',
+    image: '/assets/products/hoodie.png',
     sellerName: 'Tienda Estudiantil',
     location: 'Rectorado',
     available: true

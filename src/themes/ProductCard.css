@@ -5,16 +5,21 @@
 }
 
 .card-image-container {
-  height: 140px;
+  width: 100%;
+  height: 180px; /* Altura fija para que todas las tarjetas midan lo mismo */
   overflow: hidden;
   position: relative;
-  background: #f0f0f0;
 }
 
 .card-image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* ESTA ES LA CLAVE: Corta la imagen para que llene el espacio sin deformarse */
+  transition: transform 0.3s ease;
+}
+
+.product-card:active img {
+  transform: scale(1.05); /* Efecto de zoom suave al tocar */
 }
 
 .status-badge {

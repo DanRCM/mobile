@@ -9,7 +9,7 @@ import {
   notificationsOutline, moonOutline, logOutOutline,
   shieldCheckmarkOutline, schoolOutline
 } from 'ionicons/icons';
-import './Profile.css';
+import '../themes/Profile.css';
 
 const Profile: React.FC = () => {
   return (

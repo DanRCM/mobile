@@ -17,7 +17,7 @@ import {
 import { useHistory, useParams } from 'react-router-dom'; // Importamos useHistory
 import { chatbubbles, locationOutline, timeOutline } from 'ionicons/icons';
 import { PRODUCTS } from '../data/mockData';
-import './ProductDetail.css';
+import '../themes/ProductDetail.css';
 
 const ProductDetail: React.FC = () => {
   const history = useHistory(); // <--- Usamos history en lugar de router

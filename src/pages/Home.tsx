@@ -13,7 +13,7 @@ import {
 } from '@ionic/react';
 import { PRODUCTS, CATEGORIES } from '../data/mockData';
 import ProductCard from '../components/ProductCard';
-import './Home.css';
+import '../themes/Home.css';
 
 const Home: React.FC = () => {
   const [searchText, setSearchText] = useState('');

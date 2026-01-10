@@ -3,7 +3,7 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, 
 import { locationOutline, chatbubbleEllipsesOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { Product } from '../data/mockData';
-import './ProductCard.css';
+import '../themes/ProductCard.css';
 
 interface ProductCardProps {
   product: Product;

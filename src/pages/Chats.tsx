@@ -13,7 +13,7 @@ import {
   IonSearchbar
 } from '@ionic/react';
 import { CHATS } from '../data/mockData';
-import './Chats.css';
+import '../themes/Chats.css';
 
 const Chats: React.FC = () => {
   return (
