@@ -4,7 +4,7 @@ import {
   IonList, IonItem, IonThumbnail, IonLabel, IonToggle,
   IonFab, IonFabButton, IonIcon, IonModal, IonButton,
   IonInput, IonTextarea, IonItemDivider, IonSelect, IonSelectOption,
-  IonNote, useIonToast
+  IonNote, useIonToast, useIonViewWillEnter
 } from '@ionic/react';
 import { add, camera, cubeOutline, checkmarkCircleOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
@@ -24,9 +24,14 @@ const Sell: React.FC = () => {
   const [newDescription, setNewDescription] = useState('');
   const [tempImage, setTempImage] = useState<string | null>(null);
 
-  const [myProducts, setMyProducts] = useState(
-    PRODUCTS.filter(p => p.sellerName === 'Juan P.').map(p => ({ ...p, stock: 10 }))
-  );
+  const [myProducts, setMyProducts] = useState<any[]>([]);
+
+  // Cada vez que el usuario entre a la pestaña "Mi Tienda"
+  useIonViewWillEnter(() => {
+    // Filtramos los productos que quedan en el array global
+    const updatedList = PRODUCTS.filter(p => p.sellerName === 'Juan P.');
+    setMyProducts(updatedList);
+  });
 
   // Función de cámara
   const takePhoto = async () => {
