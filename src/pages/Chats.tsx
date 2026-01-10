@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
-  IonContent, 
-  IonHeader, 
-  IonPage, 
-  IonTitle, 
-  IonToolbar, 
-  IonList, 
-  IonItem, 
-  IonAvatar, 
-  IonLabel, 
-  IonBadge,
-  IonSearchbar
+  IonContent, IonHeader, IonPage, IonTitle, IonToolbar, 
+  IonList, IonItem, IonAvatar, IonLabel, IonBadge,
+  IonSearchbar, IonText, IonChip
 } from '@ionic/react';
 import { CHATS } from '../data/mockData';
 import '../themes/Chats.css';
 
 const Chats: React.FC = () => {
+  const [searchText, setSearchText] = useState('');
+  // Nuevo estado para el filtro de rol: 'all', 'buying', 'selling'
+  const [activeFilter, setActiveFilter] = useState<'all' | 'buying' | 'selling'>('all');
+
+  // Lógica de filtrado combinada (Buscador + Chips)
+  const filteredChats = CHATS.filter(chat => {
+    const searchLower = searchText.toLowerCase();
+    const matchesSearch = chat.userName.toLowerCase().includes(searchLower) || 
+                          chat.productName.toLowerCase().includes(searchLower);
+    
+    // Si el filtro es 'buying', mostramos donde soy comprador (isSelling es false para el otro)
+    // En nuestro mockData, 'isSelling' indica el rol del contacto.
+    if (activeFilter === 'buying') return matchesSearch && !chat.isSelling;
+    if (activeFilter === 'selling') return matchesSearch && chat.isSelling;
+    
+    return matchesSearch;
+  });
+
   return (
     <IonPage>
       <IonHeader translucent>
@@ -23,64 +33,86 @@ const Chats: React.FC = () => {
           <IonTitle>Mensajes</IonTitle>
         </IonToolbar>
         <IonToolbar>
-             <IonSearchbar placeholder="Buscar chat..."></IonSearchbar>
+          <IonSearchbar 
+            placeholder="Buscar por nombre o producto..." 
+            value={searchText}
+            onIonInput={e => setSearchText(e.detail.value!)}
+          />
         </IonToolbar>
+        
+        {/* Chips de Filtro Rápido */}
+        <div style={{ padding: '0 10px 10px 10px', display: 'flex', gap: '5px' }}>
+          <IonChip 
+            outline={activeFilter !== 'all'} 
+            color="primary"
+            onClick={() => setActiveFilter('all')}
+          >
+            <IonLabel>Todos</IonLabel>
+          </IonChip>
+          <IonChip 
+            outline={activeFilter !== 'selling'} 
+            color="success"
+            onClick={() => setActiveFilter('selling')}
+          >
+            <IonLabel>Mis Ventas</IonLabel>
+          </IonChip>
+          <IonChip 
+            outline={activeFilter !== 'buying'} 
+            color="tertiary"
+            onClick={() => setActiveFilter('buying')}
+          >
+            <IonLabel>Mis Compras</IonLabel>
+          </IonChip>
+        </div>
       </IonHeader>
 
       <IonContent fullscreen>
         <IonList lines="full"> 
-          {/* Mapeamos la lista de chats falsos */}
-          {CHATS.map((chat) => (
-            <IonItem 
-              key={chat.id} 
-              button 
-              detail={false} // Quitamos la flechita > por defecto para un look más limpio
-              routerLink={`/app/chats/${chat.id}`} // Navegaremos a la sala de chat (próximo paso)
-            >
-              {/* Avatar del usuario */}
-              <IonAvatar slot="start">
-                <img src={chat.avatar} alt={chat.userName} />
-              </IonAvatar>
+          {filteredChats.length > 0 ? (
+            filteredChats.map((chat) => (
+              <IonItem 
+                key={chat.id} 
+                button 
+                detail={false} 
+                routerLink={`/app/chats/${chat.id}`}
+              >
+                <IonAvatar slot="start">
+                  <img src={chat.avatar} alt={chat.userName} />
+                </IonAvatar>
 
-              <IonLabel>
-                {/* Primera línea: Nombre y Contexto de Rol */}
-                <h2>
-                  {chat.userName}
-                  {/* Etiqueta opcional para saber si compro o vendo */}
-                  <span style={{ float: 'right', fontSize: '0.7rem', color: '#999' }}>
-                    {chat.isSelling ? '🛍️ Cliente' : '🛒 Vendedor'}
-                  </span>
-                </h2>
+                <IonLabel>
+                  <h2>
+                    {chat.userName}
+                    <span style={{ float: 'right', fontSize: '0.7rem', fontWeight: 'bold', color: chat.isSelling ? 'var(--ion-color-success)' : 'var(--ion-color-tertiary)' }}>
+                      {chat.isSelling ? 'CLIENTE' : 'VENDEDOR'}
+                    </span>
+                  </h2>
 
-                {/* Segunda línea: De qué producto hablan */}
-                <h3 className="chat-product-context">
-                  {chat.productName}
-                </h3>
+                  <h3 className="chat-product-context">
+                    {chat.productName}
+                  </h3>
 
-                {/* Tercera línea: Último mensaje (truncado) */}
-                <p>{chat.lastMessage}</p>
-              </IonLabel>
+                  <p>{chat.lastMessage}</p>
+                </IonLabel>
 
-              {/* Columna Derecha: Hora y Badge de no leídos */}
-              <div slot="end" style={{ textAlign: 'right' }}>
-                <span className="chat-time">{chat.time}</span>
-                {chat.unreadCount > 0 && (
-                  <IonBadge color="primary" className="chat-badge">
-                    {chat.unreadCount}
-                  </IonBadge>
-                )}
-              </div>
-            </IonItem>
-          ))}
+                <div slot="end" style={{ textAlign: 'right' }}>
+                  <span className="chat-time" style={{ fontSize: '0.75rem' }}>{chat.time}</span>
+                  {chat.unreadCount > 0 && (
+                    <IonBadge color="primary" className="chat-badge">
+                      {chat.unreadCount}
+                    </IonBadge>
+                  )}
+                </div>
+              </IonItem>
+            ))
+          ) : (
+            <div className="ion-padding ion-text-center" style={{ marginTop: '40px' }}>
+              <IonText color="medium">
+                <p>No hay mensajes que coincidan con los filtros.</p>
+              </IonText>
+            </div>
+          )}
         </IonList>
-
-        {/* Mensaje si no hay chats (solo visual por ahora) */}
-        {CHATS.length === 0 && (
-          <div className="ion-padding ion-text-center">
-            <p>No tienes mensajes aún.</p>
-          </div>
-        )}
-
       </IonContent>
     </IonPage>
   );
