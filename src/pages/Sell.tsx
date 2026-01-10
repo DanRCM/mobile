@@ -125,9 +125,8 @@ const Sell: React.FC = () => {
           color: 'danger',
           buttons: [{ text: 'CERRAR', role: 'cancel' }]
         });
-        return; // Salimos de la función aquí, no se cambia nada
+        return;
       }
-      // -------------------------------------
 
       // Si pasa la validación, procedemos con el cambio normal
       const newStatus = isActivating;

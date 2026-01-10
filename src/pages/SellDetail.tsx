@@ -164,7 +164,8 @@ const SellDetail: React.FC = () => {
             <IonIcon slot="start" icon={createOutline} color="primary" />
             <IonLabel>Editar información</IonLabel>
           </IonItem>
-          <IonItem button>
+          {/* CONECTANDO EL HISTORIAL AQUÍ */}
+          <IonItem button routerLink={`/app/sell/history/${product.id}`}>
             <IonIcon slot="start" icon={statsChartOutline} color="medium" />
             <IonLabel>Ver historial de ventas</IonLabel>
           </IonItem>
