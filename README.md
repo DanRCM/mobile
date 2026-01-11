@@ -37,7 +37,7 @@ Para ejecutar este proyecto localmente, sigue estos pasos:
 
 1. **Clona el repositorio:**
    ```bash
-   git clone [https://github.com/tu-usuario/espolmarket.git](https://github.com/tu-usuario/espolmarket.git)
+   git clone https://github.com/tu-usuario/mobile.git
 
 2. **Instala las dependencias:**
    ```bash
