@@ -1,0 +1,46 @@
+body.dark {
+  /* Fondo negro puro estilo iPhone */
+  --ion-background-color: #000000;
+  --ion-background-color-rgb: 0,0,0;
+
+  /* Texto blanco puro */
+  --ion-text-color: #ffffff;
+  --ion-text-color-rgb: 255,255,255;
+
+  /* Los Items de las listas (como en Perfil) */
+  --ion-item-background: #000000;
+  
+  /* Los bordes de las líneas */
+  --ion-item-border-color: #222222;
+}
+
+/* Hacer que los botones "Me Interesa" brillen más */
+body.dark .contact-btn {
+  --box-shadow: 0 0 15px rgba(var(--ion-color-primary-rgb), 0.4);
+}
+
+/* --- AJUSTE DEL TAB BAR (MENÚ INFERIOR) --- */
+
+/* Modo Claro (Por defecto) */
+ion-tab-bar {
+  --background: #ffffff;
+  --border-color: #e0e0e0;
+}
+
+/* Modo Oscuro (Cuando activas el toggle) */
+body.dark ion-tab-bar {
+  --background: #000000 !important; /* Fondo negro puro */
+  --border-color: #222222 !important; /* Borde muy sutil para separarlo del contenido */
+}
+
+/* Ajuste de los botones del tab bar en modo oscuro */
+body.dark ion-tab-button {
+  --background: #000000;
+  --color: #888888; /* Color de los iconos no seleccionados */
+  --color-selected: var(--ion-color-primary); /* Color del icono activo (azul) */
+}
+
+/* Asegurar que el texto debajo de los iconos también cambie */
+body.dark ion-tab-button ion-label {
+  color: inherit;
+}

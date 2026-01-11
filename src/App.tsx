@@ -42,12 +42,12 @@ import '@ionic/react/css/display.css';
  * https://ionicframework.com/docs/theming/dark-mode
  */
 
-/* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
-import '@ionic/react/css/palettes/dark.system.css';
+/* App.tsx */
+import '@ionic/react/css/palettes/dark.class.css';
 import SellDetail from './pages/SellDetail';
 import SellerProfile from './pages/SellerProfile';
 import SalesHistory from './pages/SellHistory';
+import './themes/App.css';
 
 setupIonicReact();
 

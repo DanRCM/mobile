@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  IonContent, 
-  IonHeader, 
-  IonPage, 
-  IonToolbar, 
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonToolbar,
   IonSearchbar,
   IonGrid,
   IonRow,
@@ -40,22 +40,23 @@ const Home: React.FC = () => {
       {/* HEADER SIN TEXTO, SOLO BUSCADOR */}
       <IonHeader className="ion-no-border">
         <IonToolbar>
-          <IonSearchbar 
-            placeholder="¿Qué buscas hoy?" 
+          <IonSearchbar
+            placeholder="¿Qué buscas hoy?"
             value={searchText}
             onIonInput={e => setSearchText(e.detail.value!)}
             animated={true}
+            className="custom-searchbar"
           ></IonSearchbar>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen>
-        
+
         {/* SECCIÓN DE CATEGORÍAS (Horizontal Scroll) */}
         <div className="categories-container">
           {CATEGORIES.map((cat, index) => (
-            <IonChip 
-              key={index} 
+            <IonChip
+              key={index}
               onClick={() => setSelectedCategory(cat)}
               color={selectedCategory === cat ? 'primary' : 'medium'}
               outline={selectedCategory !== cat}

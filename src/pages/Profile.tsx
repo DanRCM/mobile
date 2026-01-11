@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { 
-  IonContent, IonHeader, IonPage, IonTitle, IonToolbar, 
-  IonAvatar, IonLabel, IonItem, IonList, IonIcon, 
-  IonButton, IonToggle, IonItemDivider, IonNote, useIonViewWillEnter
+import React, { useState, useEffect } from 'react';
+import {
+  IonContent, IonHeader, IonPage, IonTitle, IonToolbar,
+  IonAvatar, IonLabel, IonItem, IonList, IonIcon,
+  IonButton, IonToggle, IonItemDivider, IonNote, useIonViewWillEnter, useIonToast
 } from '@ionic/react';
-import { 
-  settingsOutline, star, walletOutline, 
+import {
+  settingsOutline, star, walletOutline,
   notificationsOutline, moonOutline, logOutOutline,
   shieldCheckmarkOutline, schoolOutline
 } from 'ionicons/icons';
@@ -13,15 +13,47 @@ import '../themes/Profile.css';
 import { PRODUCTS } from '../data/mockData';
 
 const Profile: React.FC = () => {
-  const myProducts = PRODUCTS.filter(p => p.sellerName === 'Juan P.');
-  // Necesitamos mostrar el numero de productos que no estan agotados
-  const activeProductsCount = myProducts.filter(p => p.available).length;
+  const [present] = useIonToast();
   const [tick, setTick] = useState(0);
 
-  // Cada vez que entres a la pestaña "Explorar", forzamos un refresco
+  // Estado para el Modo Oscuro - Inicializamos con el valor actual del body
+  const [isDarkMode, setIsDarkMode] = useState(document.body.classList.contains('dark'));
+
+  const myProducts = PRODUCTS.filter(p => p.sellerName === 'Juan P.');
+  const activeProductsCount = myProducts.filter(p => p.available).length;
+
   useIonViewWillEnter(() => {
     setTick(t => t + 1);
   });
+
+  useEffect(() => {
+    setIsDarkMode(document.body.classList.contains('dark'));
+  }, []);
+
+  const toggleDarkModeHandler = (ev: CustomEvent) => {
+    const checked = ev.detail.checked;
+    setIsDarkMode(checked);
+
+    // Forzamos el cambio directamente en el documento
+    if (checked) {
+      document.documentElement.classList.add('dark'); // Prueba con documentElement también
+      document.body.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.body.classList.remove('dark');
+    }
+  };
+
+  // FUNCIÓN PARA MENSAJES DE PROXIMAMENTE
+  const showComingSoon = () => {
+    present({
+      message: 'Esta función se activará en próximas versiones :D',
+      duration: 2000,
+      position: 'bottom',
+      color: 'tertiary',
+      buttons: [{ text: 'CERRAR', role: 'cancel' }]
+    });
+  };
 
   return (
     <IonPage>
@@ -33,7 +65,7 @@ const Profile: React.FC = () => {
           </IonAvatar>
           <h1 className="profile-name">Juan Pérez</h1>
           <p style={{ margin: '5px 0' }}>Ingeniería en Computación</p>
-          
+
           <div className="reputation-badge">
             <IonIcon icon={star} color="warning" />
             <span>4.8 Reputación (24 ventas)</span>
@@ -74,21 +106,30 @@ const Profile: React.FC = () => {
           </IonItem>
 
           <IonItemDivider>Preferencias de la App</IonItemDivider>
+
+          {/* TOGGLE DE MODO OSCURO REAL */}
           <IonItem>
             <IonIcon slot="start" icon={moonOutline} />
             <IonLabel>Modo Oscuro</IonLabel>
-            <IonToggle slot="end" checked={true} />
+            <IonToggle
+              slot="end"
+              checked={isDarkMode}
+              onIonChange={toggleDarkModeHandler} // Cambiamos a onIonChange
+            />
           </IonItem>
-          <IonItem button>
+
+          <IonItem button onClick={showComingSoon}>
             <IonIcon slot="start" icon={notificationsOutline} />
             <IonLabel>Notificaciones</IonLabel>
             <IonNote slot="end">Activadas</IonNote>
           </IonItem>
-          <IonItem button>
+
+          <IonItem button onClick={showComingSoon}>
             <IonIcon slot="start" icon={walletOutline} />
             <IonLabel>Métodos de Cobro</IonLabel>
           </IonItem>
-          <IonItem button>
+
+          <IonItem button onClick={showComingSoon}>
             <IonIcon slot="start" icon={settingsOutline} />
             <IonLabel>Configuración de Cuenta</IonLabel>
           </IonItem>
@@ -96,11 +137,11 @@ const Profile: React.FC = () => {
 
         {/* BOTÓN DE CIERRE DE SESIÓN */}
         <div className="ion-padding">
-          <IonButton 
-            expand="block" 
-            color="danger" 
-            fill="clear" 
-            routerLink="/login" 
+          <IonButton
+            expand="block"
+            color="danger"
+            fill="clear"
+            routerLink="/login"
             routerDirection="root"
           >
             <IonIcon slot="start" icon={logOutOutline} />

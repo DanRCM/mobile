@@ -54,3 +54,42 @@
   align-items: center;
   gap: 5px;
 }
+
+/* --- AJUSTES PARA ICONOS EN MODO OSCURO --- */
+
+body.dark .profile-header {
+  /* Opcional: Un gradiente más oscuro para el modo dark */
+  background: linear-gradient(to bottom, #1a1a1a, #000000);
+  border-bottom: 1px solid #333;
+}
+
+/* Forzar que los iconos de la lista sean visibles */
+body.dark ion-item ion-icon {
+  color: #ffffff !important; /* Blanco puro */
+  opacity: 0.9;
+}
+
+/* Color específico para los iconos que tienen colores asignados (ej: success) */
+body.dark ion-item ion-icon[color="success"] {
+  color: var(--ion-color-success) !important;
+}
+
+body.dark ion-item ion-icon[color="primary"] {
+  color: var(--ion-color-primary) !important;
+}
+
+/* Ajuste para los textos de la lista en Profile */
+body.dark ion-list {
+  background: transparent !important;
+}
+
+body.dark ion-item {
+  --background: #121212;
+  --color: #ffffff;
+}
+
+body.dark ion-item-divider {
+  --background: #1a1a1a;
+  --color: #888;
+  border-bottom: 1px solid #333;
+}

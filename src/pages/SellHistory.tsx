@@ -47,7 +47,8 @@ const SalesHistory: React.FC = () => {
         <div style={{ 
           padding: '30px 20px', 
           textAlign: 'center', 
-          background: 'linear-gradient(to bottom, #1a1a1a, #000)',
+          // Ajustamos para que funcione el moodo oscuro
+          background: 'var(--ion-color-primary)',
           color: 'white' 
         }}>
           <p style={{ margin: 0, opacity: 0.6, fontSize: '0.9rem' }}>Ingresos por este producto</p>

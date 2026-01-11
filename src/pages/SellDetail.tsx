@@ -96,13 +96,13 @@ const SellDetail: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/app/sell" />
           </IonButtons>
-          <IonTitle>Estadísticas</IonTitle>
+          <IonTitle>Detalle</IonTitle>
         </IonToolbar>
       </IonHeader>
-
-      <IonContent className="ion-padding">
+      <IonContent className="ion-padding" >
         {/* CABECERA RESUMEN */}
-        <IonCard mode="ios">
+        
+        <IonCard mode="ios" style={{ border: '1px solid var(--ion-color-step-200, #ccc)', borderRadius: '12px', margin: '10px' }}>
           <IonCardContent>
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
               <img src={product.image} style={{ width: '70px', height: '70px', borderRadius: '12px', objectFit: 'cover' }} />
@@ -114,53 +114,59 @@ const SellDetail: React.FC = () => {
           </IonCardContent>
         </IonCard>
 
-        <h3 style={{ marginLeft: '16px', fontSize: '1.1rem', fontWeight: '600', marginTop: '20px' }}>
+        {/* RENDIMIENTO */}
+        <h3 style={{ marginLeft: '16px', fontSize: '1.1rem', fontWeight: 'bold', marginTop: '20px' }}>
           Rendimiento
         </h3>
 
-        <IonGrid style={{ padding: '8px' }}>
-          <IonRow className="ion-justify-content-center"> {/* Centra las columnas si sobrasen espacio */}
-            <IonCol size="6" style={{ padding: '8px' }}>
-              <div style={{
-                aspectRatio: '1/1',
-                background: '#1e1e1e', // Fondo oscuro para resaltar en modo dark
-                borderRadius: '16px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%', // Obliga a ocupar todo el ancho de la columna
-                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-              }}>
-                <IonIcon icon={eyeOutline} color="primary" style={{ fontSize: '28px' }} />
-                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', marginTop: '8px', color: 'white' }}>124</span>
-                <span style={{ fontSize: '0.85rem', color: '#aaa', textTransform: 'capitalize' }}>Vistas</span>
-              </div>
-            </IonCol>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center', // Centra el conjunto
+          gap: '12px',              // Espacio exacto entre cuadros
+          padding: '0 16px',
+        }}>
+          {/* CUADRO 1 */}
+          <div style={{
+            flex: 1,                // Ocupan el mismo ancho
+            aspectRatio: '1/1',
+            maxWidth: '160px',      // Para que no crezcan infinito en pantallas grandes
+            background: 'var(--ion-color-step-150, #9998a2)', // Gris que cambia en Dark Mode
+            borderRadius: '16px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+          }}>
+            <IonIcon icon={eyeOutline} color="primary" style={{ fontSize: '28px' }} />
+            <span style={{ fontSize: '1.3rem', fontWeight: 'bold', marginTop: '8px', color: 'var(--ion-text-color)' }}>124</span>
+            <span style={{ fontSize: '0.8rem', opacity: 0.6, color: 'var(--ion-text-color)' }}>Vistas</span>
+          </div>
 
-            <IonCol size="6" style={{ padding: '8px' }}>
-              <div style={{
-                aspectRatio: '1/1',
-                background: '#1e1e1e',
-                borderRadius: '16px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-              }}>
-                <IonIcon icon={chatbubblesOutline} color="success" style={{ fontSize: '28px' }} />
-                <span style={{ fontSize: '1.2rem', fontWeight: 'bold', marginTop: '8px', color: 'white' }}>8</span>
-                <span style={{ fontSize: '0.85rem', color: '#aaa', textTransform: 'capitalize' }}>Interesados</span>
-              </div>
-            </IonCol>
-          </IonRow>
-        </IonGrid>
+          {/* CUADRO 2 */}
+          <div style={{
+            flex: 1,
+            aspectRatio: '1/1',
+            maxWidth: '160px',
+            background: 'var(--ion-color-step-150, #9998a2)',
+            borderRadius: '16px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+          }}>
+            <IonIcon icon={chatbubblesOutline} color="success" style={{ fontSize: '28px' }} />
+            <span style={{ fontSize: '1.3rem', fontWeight: 'bold', marginTop: '8px', color: 'var(--ion-text-color)' }}>8</span>
+            <span style={{ fontSize: '0.8rem', opacity: 0.6, color: 'var(--ion-text-color)' }}>Interesados</span>
+          </div>
+        </div>
 
-        {/* ACCIONES */}
-        <IonList inset={true} style={{ marginTop: '10px' }}>
-          <IonItem button onClick={() => setShowEditModal(true)}>
+        {/* ACCIONES 
+        Añadimos un borde a la lista para que resalte más en modo claro
+        */}
+        <IonList inset={true} style={{ marginTop: '10px' }} >
+          <IonItem button onClick={() => setShowEditModal(true)} >
             <IonIcon slot="start" icon={createOutline} color="primary" />
             <IonLabel>Editar información</IonLabel>
           </IonItem>
@@ -171,14 +177,15 @@ const SellDetail: React.FC = () => {
           </IonItem>
         </IonList>
 
+        {/* BOTÓN DE ELIMINAR */}
         <IonButton
           expand="block"
           color="danger"
           fill="clear"
-          style={{ marginTop: '30px' }}
+          style={{ marginTop: '30px', border: '1px solid var(--ion-color-step-200, #ccc)', borderRadius: '12px' }}
           onClick={handleDelete}
         >
-          <IonIcon slot="start" icon={trashOutline} />
+          <IonIcon slot="start" icon={trashOutline}  />
           Eliminar Publicación
         </IonButton>
 

@@ -3,7 +3,6 @@
   overflow-x: auto; /* Permite scroll horizontal */
   padding: 10px;
   gap: 5px;
-  /* Ocultar barra de scroll para estética */
   scrollbar-width: none; 
 }
 
@@ -44,4 +43,45 @@ ion-card-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+/* Cuando el body tiene la clase .dark, forzamos los colores en Home */
+body.dark ion-content, 
+body.dark ion-page,
+body.dark ion-toolbar {
+  --background: #000000 !important;
+  --ion-background-color: #000000 !important;
+  --ion-text-color: #ffffff !important;
+  color: white !important;
+}
+
+body.dark .products-container {
+    background-color: #000000; /* Negro puro de fondo */
+}
+
+body.dark .product-card {
+    --background: #121212; /* Un gris casi negro para la tarjeta */
+}
+
+body.dark .categories-container {
+  background-color: #121212; /* Un gris muy oscuro para contraste */
+}
+
+/* Forzar legibilidad de textos en modo oscuro */
+body.dark .products-container ion-label h2,
+body.dark .products-container p,
+body.dark .products-container span {
+  color: #ffffff !important; /* Blanco puro para títulos */
+}
+
+body.dark .products-container p {
+  opacity: 0.8;
+}
+
+/* Arreglar el buscador para que no se vea gris opaco */
+body.dark ion-searchbar {
+  --background: #1e1e1e !important;
+  --color: white !important;
+  --placeholder-color: #aaa !important;
+  --icon-color: #aaa !important;
 }
